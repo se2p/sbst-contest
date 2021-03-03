@@ -4,3 +4,5 @@ tooldir/*/transcript*
 .classpath
 .project
 .settings
+.idea
+runtool.iml
