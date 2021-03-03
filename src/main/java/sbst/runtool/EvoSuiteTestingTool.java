@@ -15,7 +15,7 @@ public class EvoSuiteTestingTool implements ITestingTool {
 	
 	public List<File> getExtraClassPath() {
         List<File> extra = new ArrayList<File>();
-		File evoJar = new File("lib"+File.separator+"evosuite-master-1.0.7-SNAPSHOT.jar");
+		File evoJar = new File("lib"+File.separator+"evosuite-master-1.1.1-SNAPSHOT.jar");
 		if(!evoJar.exists()){
 			System.err.println("Wrong EvoSuite jar setting, jar is not at: "+evoJar.getAbsolutePath());
 		} else {
@@ -119,7 +119,7 @@ public class EvoSuiteTestingTool implements ITestingTool {
 //		        "-Dsecondary_objectives=totallength",
 		        "-Dminimize=true",
 		        "-Dinline=false",
-//		        "-Dsandbox_mode=IO",
+//		        "-Dsandbox_mode=IO"
 		        "-Dcoverage=false",
 		        "-Dvariable_pool=true", 
 		        "-Dsearch_budget="+search,
