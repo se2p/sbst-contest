@@ -32,8 +32,9 @@ def boxplot(data, x, y, hue, title=None, figsize=None):
     # to plot on the y-axis. The "hue" determines the subgroups.
     fig = plt.figure(figsize=figsize)
     palette = sns.color_palette(palette='pastel', n_colors=n_colors)
+    flierprops = {'marker': 'o', 'markersize': 1.0}
     ax = sns.boxplot(data=data, x=x, y=y, hue=hue, palette=palette,
-                     linewidth=0.5)
+                     linewidth=0.5, flierprops=flierprops)
 
     style_axes()
 
@@ -42,7 +43,7 @@ def boxplot(data, x, y, hue, title=None, figsize=None):
     # within a grouped boxplot via their color.
     set_legend()
 
-    return fig, ax
+    return fig
 
 
 def save_fig(fig, filename):

@@ -42,12 +42,13 @@ as hue key creates grouped a boxplot: for each metric, it actually plots two
 boxes for the two budgets.
 """
 utils.preload_latex_style()
-fig, ax = utils.boxplot(data=plot_data,
-                        x='Metric',
-                        y='Percent',
-                        hue='Time Budget',
-                        title='Time Budget [s]',
-                        figsize=(3.5, 2.15))
+
+fig = utils.boxplot(data=plot_data,
+                    x='Metric',
+                    y='Percent',
+                    hue='Time Budget',
+                    title='Time Budget [s]',
+                    figsize=(3.5, 2.15))
 utils.save_fig(fig, './CoverageBoxV.pdf')
 
 
@@ -57,6 +58,46 @@ def budget(seconds):
 
 data30 = all_data[budget(30)]
 data120 = all_data[budget(120)]
+
+
+def benchmark_basename(benchmark_name):
+    return benchmark_name.split('-')[0].capitalize()
+
+
+columns = {
+    'benchmark': 'Benchmark',
+    **dict(zip(coverage_columns, translation))
+}
+
+data_by_benchmark30 = (data30[['benchmark', *coverage_columns]]
+                       .rename(columns=columns)
+                       .melt(id_vars='Benchmark',
+                             var_name='Metric',
+                             value_name='Percent'))
+benchmarks = data_by_benchmark30['Benchmark'].copy()
+data_by_benchmark30['Benchmark'] = benchmarks.map(benchmark_basename)
+
+fig = utils.boxplot(data=data_by_benchmark30,
+                    x='Metric',
+                    y='Percent',
+                    hue='Benchmark',
+                    figsize=(3.5, 2.15))
+utils.save_fig(fig, './CoverageByBenchmark30.pdf')
+
+data_by_benchmark120 = (data120[['benchmark', *coverage_columns]]
+                        .rename(columns=columns)
+                        .melt(id_vars='Benchmark',
+                              var_name='Metric',
+                              value_name='Percent'))
+benchmarks = data_by_benchmark120['Benchmark'].copy()
+data_by_benchmark120['Benchmark'] = benchmarks.map(benchmark_basename)
+
+fig = utils.boxplot(data=data_by_benchmark120,
+                    x='Metric',
+                    y='Percent',
+                    hue='Benchmark',
+                    figsize=(3.5, 2.15))
+utils.save_fig(fig, './CoverageByBenchmark120.pdf')
 
 stats = {
     'score': 380.57,
