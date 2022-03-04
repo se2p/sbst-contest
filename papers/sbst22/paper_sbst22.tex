@@ -135,10 +135,10 @@
 
 \newcommand{\JodaTime}{Joda-Time\xspace}  % That's how they write themselves -- AZ
 
-\newcommand{\EVOSUITE}{{\sc EvoSuite}\xspace}
-\newcommand{\JTEXPERT}{{\sc jTExpert}\xspace}
-\newcommand{\RANDOOP}{{\sc Randoop}\xspace}
-\newcommand{\TT}{{\sc T3}\xspace}
+\newcommand{\EVOSUITE}{\textsc{EvoSuite}\xspace}
+\newcommand{\JTEXPERT}{\textsc{jTExpert}\xspace}
+\newcommand{\RANDOOP}{\textsc{Randoop}\xspace}
+\newcommand{\TT}{\textsc{T3}\xspace}
 
 \newcommand{\MUTEST}{{\sc $\mu$Test}\xspace}
 \newcommand{\CS}{{\sc SF100}\xspace}
@@ -149,7 +149,8 @@
 \DeclareMathSymbol{\decimal}{\mathord}{letters}{"3A}
 %%%"
 
-%\input{macros}
+\usepackage{siunitx}
+\input{data/macros}
 
 %------------------------------------------------------------------------- 
 % take the % away on next line to produce the final camera-ready version 
@@ -161,13 +162,12 @@
 % 
 
 %\title{Unit Testing Tool competition: Results for EvoSuite}
-\title{\EVOSUITE at the SBST 2021 Tool Competition}
+\title{\EVOSUITE at the SBST 2022 Tool Competition}
  
 
 \author{%
 %
 \IEEEauthorblockN{%
-Sebastian Vogl\IEEEauthorrefmark{1}, 
 Sebastian Schweikl\IEEEauthorrefmark{1},
 Gordon Fraser\IEEEauthorrefmark{1}, 
 Andrea Arcuri\IEEEauthorrefmark{2},
@@ -186,7 +186,7 @@ and Annibale Panichella\IEEEauthorrefmark{4}%
 %\thispagestyle{empty}
 
 \begin{abstract}
-  \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the ninth unit testing competition at SBST 2021, where \EVOSUITE achieved the highest overall score.
+  \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the 10th unit testing competition at SBST 2022, where \EVOSUITE achieved the highest overall score.
 \end{abstract}
 
 
@@ -198,10 +198,10 @@ The annual unit test generation competition aims to drive and evaluate progress
 on unit test generation tools. Every year, a benchmark of Java classes is
 selected, and different test generation tools are evaluated in terms of the
 code coverage and mutation scores they can achieve on these classes. In the
-2021 edition of the competition, six tools were applied on a set of 98 classes.
+2022 edition of the competition, seven tools were applied on a set of \cuts classes.
 Details about the procedure of the competition, the technical framework, and
-the benchmark classes can be found in the competition report~\cite{SBST:2021}.
-\EVOSUITE achieved an overall score of 292.05, which was the highest among the
+the benchmark classes can be found in the competition report~\cite{SBST-toolcomp22}.
+\EVOSUITE achieved an overall score of \score, which was the highest among the
 competing and baseline tools.
 
 
@@ -273,24 +273,25 @@ distributed the other 50\% equally to the remaining phases (e.g., assertion gene
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{CoverageBoxV}
+	\includegraphics[width=\columnwidth]{data/CoverageBoxV}
 	\vspace{-2em}
 	\caption{\label{fig:results}Coverage results achieved in the competition.}
 	\vspace{-1em}
 \end{figure}
 
 
-With an overall score of 292.05, \EVOSUITE achieved the highest score of all
+With an overall score of \score, \EVOSUITE achieved the highest score of all
 tools in the competition. As described in the competition
-report~\cite{SBST:2021}, the score is calculated on the subset of 25 classes
+report~\cite{SBST-toolcomp22}, the score is calculated on the subset of \cuts classes
 for which all tools produced tests in some of the runs.
 Figure~\ref{fig:results} summarises the results of \EVOSUITE in terms of the
-mean coverage for the 25 classes used in the competition. While the coverage
-increased from the 30 seconds to the 120 seconds search budget (mean line
-coverage of 65.7\% vs. 77.1\%, respectively), the additional run of 300 seconds
+mean coverage for the \cuts classes used in the competition. While the coverage
+increased from the \budgetShort to the \budgetLong search budget (mean line
+coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively),
+the additional run of 300 seconds
 actually shows a slight decrease (mean line coverage of 73.9\%). The likely
 reason for this result is that \EVOSUITE crashed more frequently when given
-more time. For example, for 76 runs of \EVOSUITE on the 25 classes no test
+more time. For example, for 76 runs of \EVOSUITE on the \cuts classes no test
 cases were generated. In most cases we found that the JVM process running
 \EVOSUITE on the competition machine crashed with an
 \texttt{OutOfMemoryException}, which possibly could have been avoided with a
@@ -299,10 +300,10 @@ more generous allocation of memory.
 The coverage ratios are generally higher than the mutation scores; while this is largely because it is simply more difficult to achieve a high mutation score, the mutation score is also negatively affected by classes with flakiness or failing tests (in which case the mutation score reported is 0\% by definition). Furthermore, in many cases the execution with the PIT mutation tool reported an error during class loading, which may be caused by configuration errors or clashes between \EVOSUITE's and PIT's bytecode instrumentation.
 
 
-A final observation is that all 25 Java classes considered in the competition
+A final observation is that all \cuts Java classes considered in the competition
 results were taken from the Guava project, which is notorious for its complex
 use of Java Generics---which is a feature \EVOSUITE still struggles to handle
-effectively. In particular, in 99 of all runs on the 25 competition classes
+effectively. In particular, in 99 of all runs on the \cuts competition classes
 \EVOSUITE did not manage to move beyond the initial generation, which tends to
 happen specifically when \EVOSUITE struggles to correctly instantiate complex,
 nested generic types. This is currently a focus point of structural
@@ -317,10 +318,11 @@ improvements and refactorings in \EVOSUITE's codebase.
 \section{Conclusions}
 
 This paper reports on the participation of the \EVOSUITE test generation tool
-in the ninth SBST Java Unit Testing Tool Contest. On average, \EVOSUITE achieved
-71\% branch coverage, 77\% line coverage, and a mutation score of 53\%, using a
-search budget of 120 seconds on the 25 classes considered for the competition.
-Overall, this results in a score of 292.05, which is the highest score of all
+in the tenth SBST Java Unit Testing Tool Contest. On average, \EVOSUITE achieved
+\avgConditionsCoverageRatioLong branch coverage, \avgLinesCoverageRatioLong line coverage, 
+and a mutation score of \avgMutantsCoverageRatioLong, using a
+search budget of \budgetLong on the \cuts classes considered for the competition.
+Overall, this results in a score of \score, which is the highest score of all
 tools in the competition.
 
 
