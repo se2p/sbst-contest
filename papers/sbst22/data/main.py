@@ -139,8 +139,8 @@ utils.write_tex_macros('./macros.tex', utils.create_tex_macros(stats))
 
 
 def test_gen_failed_histogram(data):
-    return (test_gen_failed(data)[['class', 'testcaseNumber']]
-            .groupby('class')
+    return (test_gen_failed(data)[['benchmark', 'class', 'testcaseNumber']]
+            .groupby(['benchmark', 'class'])
             .count()
             .sort_values(by='testcaseNumber', ascending=False))
 
