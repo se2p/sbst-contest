@@ -41,7 +41,7 @@ corresponding values in the "Percent" column on the y-axis. Using "Time Budget"
 as hue key creates grouped a boxplot: for each metric, it actually plots two 
 boxes for the two budgets.
 """
-utils.preload_latex_style()
+utils.preload_latex_style("ACM")
 
 fig = utils.boxplot(data=plot_data,
                     x='Metric',

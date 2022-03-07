@@ -52,14 +52,23 @@ def save_fig(fig, filename):
     fig.savefig(filename, filetype='pdf', bbox_inches='tight', backend='pgf')
 
 
-def preload_latex_style():
+def preload_latex_style(document_class="ACM"):
     plt.style.use('seaborn')
     sns.set_style('whitegrid', {'grid.linewidth': 52})
     sns.set_context('paper')
-    load_custom_font = '\n'.join([
-        r'\usepackage{newtxtext,newtxmath}',
-        r'\usepackage[T1]{fontenc}',
-    ])
+
+    # Load custom fonts. ACM uses Linux Libertine, IEEE uses Times.
+    if document_class == "ACM":
+        load_custom_font = '\n'.join([
+            r'\usepackage{libertine,libertinust1math}',
+            r'\usepackage[T1]{fontenc}',
+        ])
+    elif document_class == "IEEE":
+        load_custom_font = '\n'.join([
+            r'\usepackage{}',
+            r'\usepackage[T1]{fontenc}',
+        ])
+
     plt.rcParams.update({
         'text.usetex': True,
         'pgf.texsystem': 'pdflatex',
