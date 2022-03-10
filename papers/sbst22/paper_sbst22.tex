@@ -9,7 +9,7 @@
 %\usepackage[numbers,sort&compress,square]{natbib}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{subfigure}
+\usepackage{subcaption}
 %\usepackage{hyperref}
 \usepackage{color}
 %\usepackage[usenames,dvipsnames,table]{xcolor}
@@ -163,8 +163,8 @@
 Sebastian Schweikl\IEEEauthorrefmark{1},
 Gordon Fraser\IEEEauthorrefmark{1}, 
 Andrea Arcuri\IEEEauthorrefmark{2},
-Jose Campos\IEEEauthorrefmark{3},
-and Annibale Panichella\IEEEauthorrefmark{4}%
+%Jose Campos\IEEEauthorrefmark{3},
+%and Annibale Panichella\IEEEauthorrefmark{4}%
 }
 %
 \IEEEauthorblockA{\IEEEauthorrefmark{1}University of Passau, Germany\\
@@ -262,13 +262,30 @@ distributed the other 50\% equally to the remaining phases (e.g., assertion gene
 %------------------------------------------------------------------------- 
 \section{Results}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{data/CoverageBoxV}
-	\vspace{-2em}
-	\caption{\label{fig:results}Coverage results achieved in the competition.}
-	\vspace{-1em}
-\end{figure}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=\columnwidth]{data/CoverageBoxV}
+%  \caption{Coverage results achieved in the competition.}
+%  \label{fig:results}
+%\end{figure}
+
+\begin{figure*}
+  \centering
+  \begin{subfigure}{\columnwidth}
+    \includegraphics[width=\linewidth]{data/CoverageByBenchmark30.pdf}
+    \caption{Coverage results achieved in the competition with \SI{30}{\second}.}
+    \label{fig:results30}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{\columnwidth}
+    \includegraphics[width=\linewidth]{data/CoverageByBenchmark120.pdf}
+    \caption{Coverage results achieved in the competition with \SI{120}{\second}.}
+    \label{fig:results120}
+  \end{subfigure}
+  
+  \caption{Creating subfigures in \LaTeX.}
+  \label{fig:figures}
+\end{figure*}
 
 
 With an overall score of \score, \EVOSUITE achieved the highest score of all
