@@ -1,0 +1,26 @@
+Classes for which no tests were generated (30 secs):                                                      testcaseNumber
+benchmark class                                                    
+GUAVA-21  com.google.common.base.internal.Finalizer               9
+GUAVA-6   com.google.common.base.Throwables                       9
+SPOON-13  spoon.support.reflect.code.CtForImpl                    2
+GUAVA-153 com.google.common.collect.ReverseOrdering               1
+Classes for which no tests were generated (120 secs):                                                                  testcaseNumber
+benchmark    class                                                             
+FASTJSON-25  com.alibaba.fastjson.parser.deserializer.Resolv...               3
+GUAVA-115    com.google.common.util.concurrent.SimpleTimeLim...               3
+SPOON-155    spoon.support.compiler.jdt.JDTSnippetCompiler                    2
+FASTJSON-9   com.alibaba.fastjson.parser.deserializer.JavaOb...               2
+GUAVA-6      com.google.common.base.Throwables                                2
+SPOON-11     spoon.reflect.factory.TypeFactory                                2
+FASTJSON-104 com.alibaba.fastjson.support.spring.FastJsonHtt...               1
+SEATA-32     io.seata.core.protocol.transaction.GlobalBeginR...               1
+SPOON-13     spoon.support.reflect.code.CtForImpl                             1
+SPOON-107    spoon.reflect.visitor.filter.CompositeFilter                     1
+SPOON-103    spoon.support.reflect.code.CtAssignmentImpl                      1
+SEATA-19     io.seata.core.protocol.RegisterRMRequest                         1
+SEATA-25     io.seata.core.rpc.netty.NettyPoolableFactory                     1
+FASTJSON-15  com.alibaba.fastjson.util.IOUtils                                1
+SEATA-15     io.seata.core.rpc.netty.RpcServer                                1
+GUAVA-71     com.google.common.collect.SparseImmutableTable                   1
+FASTJSON-72  com.alibaba.fastjson.serializer.AwtCodec                         1
+SPOON-159    spoon.reflect.visitor.ModelConsistencyChecker                    1
