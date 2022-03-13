@@ -208,7 +208,7 @@ which was the highest among the competing and baseline tools.
 \EVOSUITE~\cite{FrA11c} automatically generates test suites for Java classes
 using evolutionary search. As input \EVOSUITE only requires the name of the
 target class as well as the classpath on which the compiled bytecode of the
-target class as well as its dependencies are located. \EVOSUITE first extracts
+target class and its dependencies are located. \EVOSUITE first extracts
 information about the relevant classes as well as their constructors, methods,
 and fields using a basic static analysis. It instruments the bytecode while
 classes are loaded by the Java classloader, such that \EVOSUITE can produce
@@ -227,20 +227,20 @@ For this, it uses a genetic encoding of test cases consisting of variable-length
 representation. The initial approach was to optimise entire test suites with
 respect to their overall code coverage~\cite{GoA_TSE12}. However, after
 extensive evaluation~\cite{ea_evaluation} the default is now the
-\textit{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA) search
+\emph{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA) search
 algorithm~\cite{dynamosa}, which operates at the test case level.
 %
 The search is driven by fitness functions that encode coverage criteria. \EVOSUITE can optimise for several criteria simultaneously, and the core fitness functions in \EVOSUITE are based on traditional heuristics for code coverage, such as the branch distance and the approach level (see~\cite{GoA_TSE12} for more details). However, there are several further fitness functions based on mutation testing~\cite{emse14_mutation} as well as other basic criteria~\cite{rojas2015combining}.
 
 
 A large share of the complexity of \EVOSUITE's code base is due to efforts to
-avoid flakiness in the generated tests. One the one hand, this covers extensive
+avoid flakiness in the generated tests. On the one hand, this covers extensive
 instrumentation and mocking. On the other hand, \EVOSUITE also compiles and
 executes each test individually to avoid compilation errors (which may be the
 result of bugs in \EVOSUITE) or flakiness caused by non-determinism in the
 class under test.
 
-\EVOSUITE is also heavily optimised in order to produce tests that are as readable as possible and avoid test smells~\cite{panichella2020revisiting}. For this, \EVOSUITE applies post-processing once the available search budget has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to remove redundant tests and statements, and adding a minimised set of assertions  using mutation analysis~\cite{10.1109/TSE.2011.93}. 
+\EVOSUITE is also heavily optimised in order to produce tests that are as readable as possible and avoid test smells~\cite{panichella2020revisiting}. For this, \EVOSUITE applies post-processing once the available search budget has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to remove redundant tests and statements, and adding a minimised set of assertions using mutation analysis~\cite{10.1109/TSE.2011.93}. 
 %Besides multiple in-depth empirical evaluations of \EVOSUITE with respect to
 %code coverage~\cite{fraser2014large,emse_archive,ea_evaluation,dynamosa},
 %fault-finding effectiveness~\cite{shamshiri2015automatically,moein2017}, and
