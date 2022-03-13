@@ -1,4 +1,5 @@
-\documentclass[sigconf,review,anonymous]{acmart}
+%\documentclass[sigconf,review,anonymous]{acmart}
+\documentclass[sigconf]{acmart}
 
 \usepackage{amsfonts}
 \usepackage[latin1]{inputenc}
@@ -157,23 +158,28 @@
 \title{\EVOSUITE at the SBST 2022 Tool Competition}
  
 
-\author{%
-%
-\IEEEauthorblockN{%
-Sebastian Schweikl\IEEEauthorrefmark{1},
-Gordon Fraser\IEEEauthorrefmark{1}, 
-Andrea Arcuri\IEEEauthorrefmark{2},
-%Jose Campos\IEEEauthorrefmark{3},
-%and Annibale Panichella\IEEEauthorrefmark{4}%
+\author{Sebastian Schweikl}
+\affiliation{%
+  \institution{University of Passau}
+  \city{Passau}
+  \country{Germany}
 }
-%
-\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Passau, Germany\\
-\{sebastian.schweikl,gordon.fraser\}@uni-passau.de}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}Kristiania University College and Oslo Metropolitan University, Norway\\andrea.arcuri@kristiania.no}
-\IEEEauthorblockA{\IEEEauthorrefmark{3}University of Lisbon, Portugal\\jcmcampos@fc.ul.pt}
-\IEEEauthorblockA{\IEEEauthorrefmark{4}Delft University of Technology, Netherlands\\A.Panichella@tudelft.nl}%
-}
+%\email{gordon.fraser@uni-passau.de}
 
+\author{Gordon Fraser}
+\affiliation{%
+  \institution{University of Passau}
+  \city{Passau}
+  \country{Germany}
+}
+%\email{gordon.fraser@uni-passau.de}
+
+\author{Andrea Arcuri}
+\affiliation{%
+  \institution{Kristiania University College and Oslo Metropolitan University}
+  \city{Oslo}
+  \country{Norway}
+}
 %\thispagestyle{empty}
 
 \begin{abstract}
@@ -285,23 +291,23 @@ flakiness-check).
 %  \label{fig:results}
 %\end{figure}
 
-\begin{figure*}
+\begin{figure}
   \centering
-  \begin{subfigure}{\columnwidth}
+  \begin{subfigure}{0.9\columnwidth}
     \includegraphics[width=\linewidth]{data/CoverageByBenchmark30.pdf}
     \caption{Coverage results achieved in the competition with \SI{30}{\second}.}
     \label{fig:results30}
   \end{subfigure}
   \hfill
-  \begin{subfigure}{\columnwidth}
+  \begin{subfigure}{0.9\columnwidth}
     \includegraphics[width=\linewidth]{data/CoverageByBenchmark120.pdf}
     \caption{Coverage results achieved in the competition with \SI{120}{\second}.}
     \label{fig:results120}
   \end{subfigure}
   
-  \caption{Creating subfigures in \LaTeX.}
+  \caption{Competition results achieved by \EVOSUITE summarised by projects from which the classes under test.}
   \label{fig:figures}
-\end{figure*}
+\end{figure}
 
 
 With an overall score of \score, \EVOSUITE achieved the highest score of all
@@ -309,18 +315,20 @@ tools in the competition. As described in the competition
 report~\cite{SBST-toolcomp22}, the score is calculated on the subset of \cuts classes
 for which all tools produced tests in some of the runs.
 Figure~\ref{fig:results30} summarises the results of \EVOSUITE in terms of the
-mean coverage for the \cuts classes used in the competition for the \budgetShort search budget; Figure~\ref{fig:results120} shows the results for the \budgetLong search budget. While the coverage
+mean coverage for the \cuts classes used in the competition for the \budgetShort search budget; Figure~\ref{fig:results120} shows the results for the \budgetLong search budget. The coverage
 increased from the \budgetShort to the \budgetLong search budget (mean line
-coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively),
-the additional run of 300 seconds
-actually shows a slight decrease (mean line coverage of 73.9\%). 
-%
-The likely reason for this result is that \EVOSUITE ran out of time more
-frequently when given more time. Indeed unlike past instances of the
-competition we found no crashes of \EVOSUITE (e.g., exceptions thrown by
-\EVOSUITE) at all, but in all cases where no tests were generated the \EVOSUITE
-process had been killed by the competition setup, suggesting that \EVOSUITE was
-using more time than allocated.
+coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively). 
+
+For \numTestGenFailedShort classes for \budgetShort, and \numTestGenFailedLong
+classes for \budgetLong, \EVOSUITE failed to generate any tests. Unlike past
+instances of the competition we found no crashes of \EVOSUITE (e.g., exceptions
+thrown by \EVOSUITE) at all, but in most cases where no tests were generated
+the \EVOSUITE process had been killed by the competition setup, suggesting that
+\EVOSUITE was using more time than allocated. In one class of the Seata project
+errors occurred during the initialisation of the target class, in which case
+\EVOSUITE simply gives up since the JVM does not allow instantiation of such
+classes.
+
 
 
 While the results for line coverage and branch coverage are similar, the
