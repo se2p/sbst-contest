@@ -61,7 +61,11 @@ data120 = all_data[budget(120)]
 
 
 def benchmark_basename(benchmark_name):
-    return benchmark_name.split('-')[0].capitalize()
+    return textsc(benchmark_name.split('-')[0].capitalize())
+
+
+def textsc(text):
+    return r'\textsc{' + text + '}'
 
 
 columns = {
