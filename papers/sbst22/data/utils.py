@@ -1,3 +1,4 @@
+from plistlib import load
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -66,6 +67,13 @@ def preload_latex_style(document_class="ACM"):
     elif document_class == "IEEE":
         load_custom_font = '\n'.join([
             r'\usepackage{}',
+            r'\usepackage[T1]{fontenc}',
+        ])
+    elif document_class == "beamer":
+        load_custom_font = '\n'.join([
+            r'\usepackage{sansmathfonts}',
+            r'\usepackage[scaled=0.95]{helvet}',
+            r'\renewcommand{\rmdefault}{\sfdefault}',
             r'\usepackage[T1]{fontenc}',
         ])
 
