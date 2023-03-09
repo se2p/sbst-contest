@@ -2,48 +2,44 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def boxplot(data, x, y, hue, title=None, figsize=None):
-    if title is None:
-        title = hue
-
+def boxplot(data, *, x, y, hue, ax=None):
     n_colors = data[hue].nunique()
-
-    def style_axes():
-        # Enlarge the range of the y-axis. Otherwise, whiskers at 0% or 100% are
-        # not visible.
-        ax.set_ylim(-5, 105)
-        all_axes = {'top': True, 'right': True, 'left': True, 'bottom': True}
-        sns.despine(fig, ax, **all_axes)
-
-    def set_legend():
-        # Remove the label from the x-axis. We create a separate "legend box"
-        # instead.
-        ax.set_xlabel('')
-        center_legend_below_plot = {
-            'loc': 'lower center',
-            'bbox_to_anchor': (0.5, -0.6)
-        }
-        ax.legend(title=title,
-                  ncol=min(3, n_colors),
-                  **center_legend_below_plot)
 
     # Create a grouped boxplot using the supplied data. "x" is the column name
     # of the data to plot on the x-axis, and "y" is the column name of the data
     # to plot on the y-axis. The "hue" determines the subgroups.
-    fig = plt.figure(figsize=figsize)
     palette = sns.color_palette(palette='pastel', n_colors=n_colors)
     flierprops = {'marker': 'o', 'markersize': 1.0}
-    ax = sns.boxplot(data=data, x=x, y=y, hue=hue, palette=palette,
-                     linewidth=0.5, flierprops=flierprops)
 
-    style_axes()
+    if ax is None:
+        ax = sns.boxplot(data=data, x=x, y=y, hue=hue, palette=palette,
+                         linewidth=0.5, flierprops=flierprops)
+    else:
+        sns.boxplot(data=data, x=x, y=y, hue=hue, palette=palette,
+                    linewidth=0.5, flierprops=flierprops, ax=ax)
 
-    # Display a legend below the plot, also giving the x-axis a label
-    # (or "title"). The main purpose of the legend is to distinguish the boxes
-    # within a grouped boxplot via their color.
-    set_legend()
+    return ax
 
-    return fig
+
+def style_axes(fig, ax):
+    # Enlarge the range of the y-axis. Otherwise, whiskers at 0% or 100% are
+    # not visible.
+    ax.set_ylim(-5, 105)
+    all_axes = {'top': True, 'right': True, 'left': True, 'bottom': True}
+    sns.despine(fig, ax, **all_axes)
+
+
+def set_legend(ax, title, ncol=1):
+    # Remove the label from the x-axis. We create a separate "legend box"
+    # instead.
+    ax.set_xlabel('')
+    center_legend_below_plot = {
+        'loc': 'lower center',
+        'bbox_to_anchor': (0.5, -0.5)
+    }
+    ax.legend(title=title,
+              ncol=ncol,
+              **center_legend_below_plot)
 
 
 def save_fig(fig, filename):

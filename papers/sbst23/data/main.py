@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import utils
 
@@ -48,12 +49,13 @@ boxes for the two budgets.
 """
 utils.preload_latex_style("ACM")
 
-fig = utils.boxplot(data=plot_data,
-                    x='Metric',
-                    y='Percent',
-                    hue='Time Budget',
-                    title='Time Budget [s]',
-                    figsize=(3.5, 2.15))
+fig = plt.figure(figsize=(3.5, 2.15))
+ax = utils.boxplot(data=plot_data,
+                   x='Metric',
+                   y='Percent',
+                   hue='Time Budget')
+utils.style_axes(fig, ax)
+utils.set_legend(ax, title="Time Budget [s]", ncol=2)
 utils.save_fig(fig, './CoverageBoxV.pdf')
 
 
@@ -92,13 +94,6 @@ data_by_benchmark30 = (data30[['benchmark', *coverage_columns]]
 benchmarks = data_by_benchmark30['Benchmark'].copy()
 data_by_benchmark30['Benchmark'] = benchmarks.map(benchmark_basename)
 
-fig = utils.boxplot(data=data_by_benchmark30,
-                    x='Metric',
-                    y='Percent',
-                    hue='Benchmark',
-                    figsize=(3.5, 2.15))
-utils.save_fig(fig, './CoverageByBenchmark30.pdf')
-
 data_by_benchmark120 = (data120[['benchmark', *coverage_columns]]
                         .rename(columns=columns)
                         .melt(id_vars='Benchmark',
@@ -107,12 +102,38 @@ data_by_benchmark120 = (data120[['benchmark', *coverage_columns]]
 benchmarks = data_by_benchmark120['Benchmark'].copy()
 data_by_benchmark120['Benchmark'] = benchmarks.map(benchmark_basename)
 
-fig = utils.boxplot(data=data_by_benchmark120,
-                    x='Metric',
-                    y='Percent',
-                    hue='Benchmark',
-                    figsize=(3.5, 2.15))
+fig = plt.figure(figsize=(3.5, 2.15))
+ax = utils.boxplot(data=data_by_benchmark30,
+                   x='Metric',
+                   y='Percent',
+                   hue='Benchmark')
+utils.style_axes(fig, ax)
+utils.set_legend(ax, title='', ncol=3)
+utils.save_fig(fig, './CoverageByBenchmark30.pdf')
+
+fig = plt.figure(figsize=(3.5, 2.15))
+ax = utils.boxplot(data=data_by_benchmark120,
+              x='Metric',
+              y='Percent',
+              hue='Benchmark')
+utils.style_axes(fig, ax)
+utils.set_legend(ax, title='', ncol=3)
 utils.save_fig(fig, './CoverageByBenchmark120.pdf')
+
+# fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7, 2.15), sharey=True)
+# utils.boxplot(data=data_by_benchmark30,
+#               x='Metric',
+#               y='Percent',
+#               hue='Benchmark',
+#               ax=ax1)
+# utils.boxplot(data=data_by_benchmark120,
+#               x='Metric',
+#               y='Percent',
+#               hue='Benchmark',
+#               ax=ax2)
+# utils.style_axes(fig, ax1)
+# utils.style_axes(fig, ax2)
+# utils.save_fig(fig, './CoverageByBenchmark.pdf')
 
 stats = {
     'score': 678.12,
