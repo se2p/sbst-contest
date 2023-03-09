@@ -21,10 +21,10 @@ def boxplot(data, x, y, hue, title=None, figsize=None):
         ax.set_xlabel('')
         center_legend_below_plot = {
             'loc': 'lower center',
-            'bbox_to_anchor': (0.5, -0.5)
+            'bbox_to_anchor': (0.5, -0.6)
         }
         ax.legend(title=title,
-                  ncol=n_colors,
+                  ncol=min(3, n_colors),
                   **center_legend_below_plot)
 
     # Create a grouped boxplot using the supplied data. "x" is the column name

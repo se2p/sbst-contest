@@ -70,7 +70,8 @@ data120 = all_data[budget(120)]
 # respectively.
 def benchmark_basename(benchmark_name):
     sep = '-'
-    basename = sep.join(benchmark_name.split(sep)[0:-1])  # drop the number at the end
+    # basename = sep.join(benchmark_name.split(sep)[0:-1])  # drop the number at the end
+    basename = benchmark_name.split(sep)[0]
     return textsc(basename.capitalize())
 
 
