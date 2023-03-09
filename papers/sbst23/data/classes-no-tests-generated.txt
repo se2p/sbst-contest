@@ -1,0 +1,25 @@
+Classes for which no tests were generated (30 secs):
+
+benchmark         class                                                  number of times
+
+collections-13    org.apache.commons.collections4.MapUtils               5
+threeten-extra-95 org.threeten.extra.Months                              1
+
+
+
+Classes for which no tests were generated (120 secs):
+
+benchmark         class                                                            number of times
+
+collections-22    org.apache.commons.collections4.ArrayStack                       3
+jsoup-28          org.jsoup.helper.DataUtil                                        3
+threeten-extra-99 org.threeten.extra.Seconds                                       2
+collections-10    org.apache.commons.collections4.multimap.ArrayL...               1
+collections-14    org.apache.commons.collections4.bag.CollectionBag                1
+collections-2     org.apache.commons.collections4.collection.Comp...               1
+jsoup-31          org.jsoup.nodes.FormElement                                      1
+jsoup-37          org.jsoup.internal.ConstrainableInputStream                      1
+ta4j-62           org.ta4j.core.indicators.helpers.LossIndicator                   1
+ta4j-63           org.ta4j.core.indicators.LWMAIndicator                           1
+ta4j-79           org.ta4j.core.indicators.statistics.VarianceInd...               1
+ta4j-82           org.ta4j.core.analysis.Returns                                   1
