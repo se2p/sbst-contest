@@ -337,7 +337,7 @@ classes for \budgetLong, \EVOSUITE failed to generate any tests. Unlike past
 instances of the competition we found no crashes of \EVOSUITE (e.g., exceptions
 thrown by \EVOSUITE) at all, but in most cases where no tests were generated
 the \EVOSUITE process had been killed by the competition setup, suggesting that
-\EVOSUITE was using more time than allocated. In one class of the \Seata project
+\EVOSUITE was using more time than allocated. In one class of the FIXME project
 errors occurred during the initialisation of the target class, in which case
 \EVOSUITE simply gives up since the JVM does not allow instantiation of such
 classes.
@@ -345,9 +345,9 @@ classes.
 
 
 While the results for line coverage and branch coverage are similar, the
-mutation scores are substantially lower. The mutation scores on the \Guava
+mutation scores are substantially lower. The mutation scores on the FIXME
 classes are highest compared to the other three projects from which classes
-were taken; this is surprising since \Guava has been known for years to be
+were taken; this is surprising since FIXME has been known for years to be
 notoriously challenging for
 \EVOSUITE~\cite{campos2015continuous,almulla2017using}. However, we find that
 in many cases the mutation analysis failed because dependency classes were
@@ -355,10 +355,10 @@ missing on the classpath. While \EVOSUITE, JUnit and the coverage measurement
 used in the competition apparently were able to cope with this problem anyway,
 the PIT mutation analysis tool was unable to deal with this problem. This may
 likely be an error in the competition setup, but it would affect all test
-generation tools. While \Spoon classes are affected the most, similar problems
+generation tools. While FIXME classes are affected the most, similar problems
 can be observed for all projects: Considering the \budgetLong runs we found
-\texttt{ClassNotFoundException}s in 414 runs for \Spoon, 309 for \Guava, 308 for
-\Fastjson, and 329 for classes in \Seata; in all these cases PIT was unable to
+\texttt{ClassNotFoundException}s in 414 runs for FIXME, 309 for FIXME, 308 for
+FIXME, and 329 for classes in FIXME; in all these cases PIT was unable to
 run even when it was possible to measure coverage.
 
 For the first time, the competition also assessed test case readability. To this,
