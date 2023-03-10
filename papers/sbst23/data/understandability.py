@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import utils
 
-utils.preload_latex_style("ACM")
+utils.preload_latex_style("IEEE")
 
 data = pd.read_csv('./human-study.csv')
 

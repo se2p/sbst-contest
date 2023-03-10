@@ -12,7 +12,7 @@ all_data = pd.read_csv('./results.csv')
 coverage_columns = ['linesCoverageRatio', 'conditionsCoverageRatio', 'mutantsCoverageRatio']
 
 # In the generated plots, we translate the original column names to more descriptive names.
-translation = ['Lines Covered', 'Branches Covered', 'Mutants Killed']
+translation = ['Lines', 'Branches', 'Mutants']
 
 # There's an additional column in the CSV that tells the time budget.
 # Here, we construct a dictionary with the four columns (three coverage related ones and the time budget) as key,
@@ -47,7 +47,7 @@ corresponding values in the "Percent" column on the y-axis. Using "Time Budget"
 as hue key creates grouped a boxplot: for each metric, it actually plots two 
 boxes for the two budgets.
 """
-utils.preload_latex_style("ACM")
+utils.preload_latex_style("IEEE")
 
 fig = plt.figure(figsize=(3.5, 2.15))
 ax = utils.boxplot(data=plot_data,
@@ -56,6 +56,7 @@ ax = utils.boxplot(data=plot_data,
                    hue='Time Budget')
 utils.style_axes(fig, ax, ylim=(-5, 105))
 utils.set_legend(ax, title="Time Budget [s]", ncol=2)
+ax.set_ylabel('Coverage [%]')
 utils.save_fig(fig, './CoverageBoxV.pdf')
 
 
@@ -105,6 +106,7 @@ ax = utils.boxplot(data=data_by_benchmark30,
                    hue='Benchmark')
 utils.style_axes(fig, ax, ylim=(-5, 105))
 utils.set_legend(ax, title='', ncol=3)
+ax.set_ylabel('Coverage [%]')
 utils.save_fig(fig, './CoverageByBenchmark30.pdf')
 
 fig = plt.figure(figsize=(3.5, 2.15))
@@ -114,6 +116,7 @@ ax = utils.boxplot(data=data_by_benchmark120,
               hue='Benchmark')
 utils.style_axes(fig, ax, ylim=(-5, 105))
 utils.set_legend(ax, title='', ncol=3)
+ax.set_ylabel('Coverage [%]')
 utils.save_fig(fig, './CoverageByBenchmark120.pdf')
 
 # fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7, 2.15), sharey=True)

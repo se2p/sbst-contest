@@ -83,7 +83,7 @@ def preload_latex_style(document_class="ACM"):
         ])
     elif document_class == "IEEE":
         load_custom_font = '\n'.join([
-            r'\usepackage{}',
+            r'\usepackage{newtxtext,newtxmath}',
             r'\usepackage[T1]{fontenc}',
         ])
     elif document_class == "beamer":
