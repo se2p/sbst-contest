@@ -53,8 +53,8 @@
     fontadjust,
     breaklines=true,
     breakatwhitespace=false
-  }    
-      
+  }
+
 
 % \hypersetup{
 % colorlinks=true,
@@ -77,7 +77,7 @@
 
 
 % in draft mode we put \remarks into the margins and do other stuff
-% set to \draftfalse for 
+% set to \draftfalse for
 \newif\ifdraft
 \draftfalse
 
@@ -95,7 +95,7 @@
 
 \ifdraft
 	\overfullrule3pt
-\fi    
+\fi
 
 % We use \FIXME for located problems (``defect'')
 \newcommand{\FIXME}[1]{\remark{FIXME: #1}}
@@ -160,18 +160,18 @@
 \acmDOI{10.1145/3526072.3527526}
 \acmISBN{978-1-4503-9318-8/22/05}
 
-%------------------------------------------------------------------------- 
-% take the % away on next line to produce the final camera-ready version 
+%-------------------------------------------------------------------------
+% take the % away on next line to produce the final camera-ready version
 \pagestyle{empty}
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 \begin{document}
 
-% 
+%
 
 %\title{Unit Testing Tool competition: Results for EvoSuite}
-\title{\EVOSUITE at the SBST 2022 Tool Competition}
- 
+\title{\EVOSUITE at the SBFT 2023 Tool Competition}
+
 
 \author{Sebastian Schweikl}
 \affiliation{%
@@ -198,25 +198,25 @@
 %\thispagestyle{empty}
 
 \begin{abstract}
-  \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the 10th unit testing competition at SBST 2022, where \EVOSUITE achieved the highest overall score.
+  \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the 11th unit testing competition at SBFT 2023, where \EVOSUITE achieved the highest overall score.
 \end{abstract}
 
 \maketitle
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 \section{Introduction}
 %
 For the last 10 years, the annual unit test generation competition has
 evaluated progress on unit test generation tools using a benchmark of Java
-classes, on which different tools are applied and compared. In the 2022 edition
-of the competition, seven tools were applied on a set of \cuts classes. Details
+classes, on which different tools are applied and compared. In the 2023 edition
+of the competition, five tools were applied on a set of \cuts classes. Details
 about the procedure of the competition, the technical framework, and the
 benchmark classes can be found in the competition
 report~\cite{SBST-toolcomp22}. \EVOSUITE achieved an overall score of \score,
 which was the highest among the competing and baseline tools.
 
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 \section{About EvoSuite}
 
 
@@ -234,9 +234,9 @@ cases aimed at maximising code coverage.
 %Besides the basic command line interface there are also plugins for popular development environments such as IntelliJ, Eclipse, or Maven~\cite{ICST16_Tool}.
 
 
-\EVOSUITE generates tests using evolutionary algorithms. 
+\EVOSUITE generates tests using evolutionary algorithms.
 %
-For this, it uses a genetic encoding of test cases consisting of variable-length sequences of Java statements (e.g., primitive statements as well as calls on constructors or methods). Standard evolutionary search operators (e.g., selection, crossover, mutation) are adapted for this representation. 
+For this, it uses a genetic encoding of test cases consisting of variable-length sequences of Java statements (e.g., primitive statements as well as calls on constructors or methods). Standard evolutionary search operators (e.g., selection, crossover, mutation) are adapted for this representation.
 %
 \EVOSUITE provides several different evolutionary algorithms to operate on this
 representation. The initial approach was to optimise entire test suites with
@@ -255,7 +255,7 @@ executes each test individually to avoid compilation errors (which may be the
 result of bugs in \EVOSUITE) or flakiness caused by non-determinism in the
 class under test.
 
-\EVOSUITE is also heavily optimised in order to produce tests that are as readable as possible and avoid test smells~\cite{panichella2020revisiting}. For this, \EVOSUITE applies post-processing once the available search budget has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to remove redundant tests and statements, and adding a minimised set of assertions using mutation analysis~\cite{10.1109/TSE.2011.93}. 
+\EVOSUITE is also heavily optimised in order to produce tests that are as readable as possible and avoid test smells~\cite{panichella2020revisiting}. For this, \EVOSUITE applies post-processing once the available search budget has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to remove redundant tests and statements, and adding a minimised set of assertions using mutation analysis~\cite{10.1109/TSE.2011.93}.
 %Besides multiple in-depth empirical evaluations of \EVOSUITE with respect to
 %code coverage~\cite{fraser2014large,emse_archive,ea_evaluation,dynamosa},
 %fault-finding effectiveness~\cite{shamshiri2015automatically,moein2017}, and
@@ -266,7 +266,7 @@ class under test.
 
 
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 \section{Competition Setup}
 
 The 2022 competition setup was identical to the 2021 setup: The most recent
@@ -296,7 +296,7 @@ flakiness-check).
 
 
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 \section{Results}
 
 %\begin{figure}
@@ -319,7 +319,7 @@ flakiness-check).
     \caption{Coverage results achieved in the competition with \SI{120}{\second}.}
     \label{fig:results120}
   \end{subfigure}
-  
+
   \caption{Competition results achieved by \EVOSUITE summarised by projects from which the classes under test.}
   \label{fig:figures}
 \end{figure}
@@ -332,7 +332,7 @@ for which all tools produced tests in some of the runs.
 Figure~\ref{fig:results30} summarises the results of \EVOSUITE in terms of the
 mean coverage for the \cuts classes used in the competition for the \budgetShort search budget; Figure~\ref{fig:results120} shows the results for the \budgetLong search budget. The coverage
 increased from the \budgetShort to the \budgetLong search budget (mean line
-coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively). 
+coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively).
 
 For \numTestGenFailedShort classes for \budgetShort, and \numTestGenFailedLong
 classes for \budgetLong, \EVOSUITE failed to generate any tests. Unlike past
@@ -364,10 +364,7 @@ can be observed for all projects: Considering the \budgetLong runs we found
 run even when it was possible to measure coverage.
 
 
-
-
-
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 \section{Conclusions}
 
 This paper reports on the participation of the \EVOSUITE test generation tool
@@ -386,16 +383,16 @@ To learn more about \EVOSUITE, visit our Web site:
 \end{center}
 
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 
 %\noindent
 \textbf{Acknowledgments:} Many thanks to all the contributors to
 \EVOSUITE.
-%This project has been supported by EPSRC project % ``GREATEST'' 
+%This project has been supported by EPSRC project % ``GREATEST''
 %EP/N023978/2.
 
 
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 %\def\IEEEbibitemsep{5pt plus 1pt}
 %\def\IEEEbibitemsep{6pt}
 %\clearpage
