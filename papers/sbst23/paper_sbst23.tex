@@ -1,5 +1,4 @@
-%\documentclass[sigconf,review,anonymous]{acmart}
-\documentclass[sigconf]{acmart}
+\documentclass[10pt,conference]{IEEEtran}
 
 \usepackage{amsfonts}
 \usepackage[latin1]{inputenc}
@@ -148,15 +147,6 @@
 \input{data/macros}
 
 
-\copyrightyear{2022}
-\acmYear{2022}
-\setcopyright{acmcopyright}
-\acmConference[SBST'22 ]{The 15th Search-Based Software Testing Workshop}{May 9, 2022}{Pittsburgh, PA, USA}
-\acmBooktitle{The 15th Search-Based Software Testing Workshop (SBST'22 ), May 9, 2022, Pittsburgh, PA, USA}
-\acmPrice{15.00}
-\acmDOI{10.1145/3526072.3527526}
-\acmISBN{978-1-4503-9318-8/22/05}
-
 %-------------------------------------------------------------------------
 % take the % away on next line to produce the final camera-ready version
 \pagestyle{empty}
@@ -170,35 +160,35 @@
 \title{\EVOSUITE at the SBFT 2023 Tool Competition}
 
 
-\author{Sebastian Schweikl}
-\affiliation{%
-  \institution{University of Passau}
-  \city{Passau}
-  \country{Germany}
+\author{%
+  \IEEEauthorblockN{Sebastian Schweikl}
+  \IEEEauthorblockA{%
+    \textit{University of Passau} \\
+    Passau, Germany \\
+    email address or ORCID
+  }
+  \and
+  \IEEEauthorblockN{Gordon Fraser}
+  \IEEEauthorblockA{%
+    \textit{University of Passau} \\
+    Passau, Germany \\
+    email address or ORCID
+  }
+  \and
+  \IEEEauthorblockN{Andrea Arcur}
+  \IEEEauthorblockA{%
+    \textit{Kristiania University College and Oslo Metropolitan University} \\
+    Oslo, Norway \\
+    email address or ORCID
+  }
 }
-%\email{gordon.fraser@uni-passau.de}
 
-\author{Gordon Fraser}
-\affiliation{%
-  \institution{University of Passau}
-  \city{Passau}
-  \country{Germany}
-}
-%\email{gordon.fraser@uni-passau.de}
-
-\author{Andrea Arcuri}
-\affiliation{%
-  \institution{Kristiania University College and Oslo Metropolitan University}
-  \city{Oslo}
-  \country{Norway}
-}
-%\thispagestyle{empty}
+\maketitle
 
 \begin{abstract}
   \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the 11th unit testing competition at SBFT 2023, where \EVOSUITE achieved the highest overall score.
 \end{abstract}
 
-\maketitle
 
 %-------------------------------------------------------------------------
 \section{Introduction}
