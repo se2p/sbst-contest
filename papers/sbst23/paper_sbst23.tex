@@ -306,12 +306,13 @@ flakiness-check).
 
 \begin{figure}
   \centering
+
   \begin{subfigure}{0.9\columnwidth}
     \includegraphics[width=\linewidth]{data/CoverageByBenchmark30.pdf}
     \caption{Coverage results achieved in the competition with \SI{30}{\second}.}
     \label{fig:results30}
   \end{subfigure}
-  \hfill
+
   \begin{subfigure}{0.9\columnwidth}
     \includegraphics[width=\linewidth]{data/CoverageByBenchmark120.pdf}
     \caption{Coverage results achieved in the competition with \SI{120}{\second}.}
@@ -325,61 +326,45 @@ flakiness-check).
 
 With an overall score of \score, \EVOSUITE achieved the highest score of all
 tools in the competition. As described in the competition
-report~\cite{SBST-toolcomp22}, the score is calculated on the subset of \cuts classes
-for which all tools produced tests in some of the runs.
+report~\cite{SBST-toolcomp22}, the score is the weighted sum between the
+rankings for coverage and understandability.
+
 Figure~\ref{fig:results30} summarises the results of \EVOSUITE in terms of the
 mean coverage for the \cuts classes used in the competition for the \budgetShort search budget; Figure~\ref{fig:results120} shows the results for the \budgetLong search budget. The coverage
 increased from the \budgetShort to the \budgetLong search budget (mean line
 coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively).
 
-For \numTestGenFailedShort classes for \budgetShort, and \numTestGenFailedLong
-classes for \budgetLong, \EVOSUITE failed to generate any tests. Unlike past
-instances of the competition we found no crashes of \EVOSUITE (e.g., exceptions
-thrown by \EVOSUITE) at all, but in most cases where no tests were generated
-the \EVOSUITE process had been killed by the competition setup, suggesting that
-\EVOSUITE was using more time than allocated. In one class of the FIXME project
-errors occurred during the initialisation of the target class, in which case
-\EVOSUITE simply gives up since the JVM does not allow instantiation of such
-classes.
-
-
+\EVOSUITE failed to generate any tests in \numTestGenFailedShort cases with a
+budget of \budgetShort, and in \numTestGenFailedLong cases with a budget of
+\budgetLong. However, we found no crashes of \EVOSUITE itself (e.g., exceptions
+thrown by \EVOSUITE), but in all cases where no tests were generated the
+\EVOSUITE process had been killed by the competition setup, suggesting that
+\EVOSUITE was using more time than allocated.
 
 While the results for line coverage and branch coverage are similar, the
-mutation scores are substantially lower. The mutation scores on the FIXME
-classes are highest compared to the other three projects from which classes
-were taken; this is surprising since FIXME has been known for years to be
-notoriously challenging for
-\EVOSUITE~\cite{campos2015continuous,almulla2017using}. However, we find that
-in many cases the mutation analysis failed because dependency classes were
-missing on the classpath. While \EVOSUITE, JUnit and the coverage measurement
-used in the competition apparently were able to cope with this problem anyway,
-the PIT mutation analysis tool was unable to deal with this problem. This may
-likely be an error in the competition setup, but it would affect all test
-generation tools. While FIXME classes are affected the most, similar problems
-can be observed for all projects: Considering the \budgetLong runs we found
-\texttt{ClassNotFoundException}s in 414 runs for FIXME, 309 for FIXME, 308 for
-FIXME, and 329 for classes in FIXME; in all these cases PIT was unable to
-run even when it was possible to measure coverage.
+mutation scores are substantially lower. The mutation scores on the \Threeten
+classes are highest compared to the other projects from which classes were taken.
 
-For the first time, the competition also assessed test case readability. To this,
-a human study with 13 participants was conducted. A random class under test
-was selected per the \Collections, \Threeten, and \Spatial projects, for which
-every competing tool generated one test case. Then, each participant was asked
-to rank these test cases on a scale from 1 (best) to 5 (worst), in terms of
-readability. Overall, \EVOSUITE achieved the 2nd highest rank. The rank
-distribution is shown in Figure~\ref{fig:readability}.
+For the first time, the competition also conducted a human study with 13
+participants to assess test case readability. To this, a method under test
+was chosen for each of the \Collections, \Threeten, and \Spatial
+projects. Then, for each competitor a test covering that method was selected
+randomly among the generated ones. Finally, the participants were asked
+to rank the tests for each project on a scale from 1 (best) to 5 (worst),
+in terms of readability. Overall, \EVOSUITE achieved the 2nd highest rank
+rating. Its distribution is shown in Figure~\ref{fig:readability}.
 
 Most participants found \EVOSUITE-generated tests to be readable. When
 \EVOSUITE ranked highest, they positively highlighted the thoroughness of
 generated assertions, using edge cases as inputs, and the fact that tests
-where short. When \EVOSUITE ranked lowest, participants critized the lack
+where short. When \EVOSUITE ranked lowest, participants criticised the lack
 of comments and descriptive test names, repetitiveness in the code, and
 needless assertions.
 
-\EVOSUITE's test case for \Collections was the longest among all presented
-ones. Interestingly, it ranked both highest and lowest, with participants
-stating that it was ``the most complete'' and the code being ``longer making
-it more confusing''.
+Among the tests for \Collections the longest one was produced by \EVOSUITE.
+Interestingly, it ranked both highest and lowest, with one participant
+stating it was ``the most complete'', while another suggested the code
+being longer makes it ``more confusing''.
 
 
 \begin{figure}
