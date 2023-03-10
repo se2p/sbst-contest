@@ -54,7 +54,7 @@ ax = utils.boxplot(data=plot_data,
                    x='Metric',
                    y='Percent',
                    hue='Time Budget')
-utils.style_axes(fig, ax)
+utils.style_axes(fig, ax, ylim=(-5, 105))
 utils.set_legend(ax, title="Time Budget [s]", ncol=2)
 utils.save_fig(fig, './CoverageBoxV.pdf')
 
@@ -74,11 +74,7 @@ def benchmark_basename(benchmark_name):
     sep = '-'
     # basename = sep.join(benchmark_name.split(sep)[0:-1])  # drop the number at the end
     basename = benchmark_name.split(sep)[0]
-    return textsc(basename.capitalize())
-
-
-def textsc(text):
-    return r'\textsc{' + text + '}'
+    return utils.textsc(basename.capitalize())
 
 
 columns = {
@@ -107,7 +103,7 @@ ax = utils.boxplot(data=data_by_benchmark30,
                    x='Metric',
                    y='Percent',
                    hue='Benchmark')
-utils.style_axes(fig, ax)
+utils.style_axes(fig, ax, ylim=(-5, 105))
 utils.set_legend(ax, title='', ncol=3)
 utils.save_fig(fig, './CoverageByBenchmark30.pdf')
 
@@ -116,7 +112,7 @@ ax = utils.boxplot(data=data_by_benchmark120,
               x='Metric',
               y='Percent',
               hue='Benchmark')
-utils.style_axes(fig, ax)
+utils.style_axes(fig, ax, ylim=(-5, 105))
 utils.set_legend(ax, title='', ncol=3)
 utils.save_fig(fig, './CoverageByBenchmark120.pdf')
 

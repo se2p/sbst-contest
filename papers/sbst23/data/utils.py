@@ -2,8 +2,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def boxplot(data, *, x, y, hue, ax=None):
-    n_colors = data[hue].nunique()
+def boxplot(data, *, x=None, y=None, hue=None, ax=None):
+    n_colors = 1 if hue is None else data[hue].nunique()
 
     # Create a grouped boxplot using the supplied data. "x" is the column name
     # of the data to plot on the x-axis, and "y" is the column name of the data
@@ -21,10 +21,32 @@ def boxplot(data, *, x, y, hue, ax=None):
     return ax
 
 
-def style_axes(fig, ax):
+def violinplot(data, *, x=None, y=None, hue=None, ax=None):
+    n_colors = 1 if hue is None else data[hue].nunique()
+
+    # Create a grouped boxplot using the supplied data. "x" is the column name
+    # of the data to plot on the x-axis, and "y" is the column name of the data
+    # to plot on the y-axis. The "hue" determines the subgroups.
+    palette = sns.color_palette(palette='pastel', n_colors=n_colors)
+    flierprops = {'marker': 'o', 'markersize': 1.0}
+
+    if ax is None:
+        ax = sns.violinplot(data=data, x=x, y=y, hue=hue, palette=palette,
+                            linewidth=0.5, flierprops=flierprops)
+    else:
+        sns.violinplot(data=data, x=x, y=y, hue=hue, palette=palette,
+                       linewidth=0.5, flierprops=flierprops, ax=ax)
+
+    return ax
+
+
+def style_axes(fig, ax, ylim=None):
     # Enlarge the range of the y-axis. Otherwise, whiskers at 0% or 100% are
     # not visible.
-    ax.set_ylim(-5, 105)
+    if ylim is not None:
+        ylim_x, ylim_y = ylim
+        ax.set_ylim(ylim_x, ylim_y)
+
     all_axes = {'top': True, 'right': True, 'left': True, 'bottom': True}
     sns.despine(fig, ax, **all_axes)
 
@@ -106,3 +128,6 @@ def write_tex_macros(filename, macros):
     with open(filename, 'w') as f:
         lines = '\n'.join(macros)
         f.write(lines)
+
+def textsc(text):
+    return r'\textsc{' + text + '}'
