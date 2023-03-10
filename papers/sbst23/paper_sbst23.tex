@@ -127,11 +127,9 @@
 }
 
 \newcommand{\project}[1]{\textsc{#1}\xspace}
-\newcommand{\Spoon}{\project{Spoon}}
-\newcommand{\Guava}{\project{Guava}}
-\newcommand{\Fastjson}{\project{Fastjson}}
-\newcommand{\Seata}{\project{Seata}}
-\newcommand{\JodaTime}{Joda-Time\xspace}  % That's how they write themselves -- AZ
+\newcommand{\Collections}{\project{Collections}}
+\newcommand{\Threeten}{\project{Threeten}}
+\newcommand{\Spatial}{\project{Spatial4j}}
 
 \newcommand{\EVOSUITE}{\textsc{EvoSuite}\xspace}
 \newcommand{\JTEXPERT}{\textsc{jTExpert}\xspace}
@@ -362,6 +360,33 @@ can be observed for all projects: Considering the \budgetLong runs we found
 \texttt{ClassNotFoundException}s in 414 runs for \Spoon, 309 for \Guava, 308 for
 \Fastjson, and 329 for classes in \Seata; in all these cases PIT was unable to
 run even when it was possible to measure coverage.
+
+For the first time, the competition also assessed test case readability. To this,
+a human study with 13 participants was conducted. A random class under test
+was selected per the \Collections, \Threeten, and \Spatial projects, for which
+every competing tool generated one test case. Then, each participant was asked
+to rank these test cases on a scale from 1 (best) to 5 (worst), in terms of
+readability. Overall, \EVOSUITE achieved the 2nd highest rank. The rank
+distribution is shown in Figure~\ref{fig:readability}.
+
+Most participants found \EVOSUITE-generated tests to be readable. When
+\EVOSUITE ranked highest, they positively highlighted the thoroughness of
+generated assertions, using edge cases as inputs, and the fact that tests
+where short. When \EVOSUITE ranked lowest, participants critized the lack
+of comments and descriptive test names, repetitiveness in the code, and
+needless assertions.
+
+\EVOSUITE's test case for \Collections was the longest among all presented
+ones. Interestingly, it ranked both highest and lowest, with participants
+stating that it was ``the most complete'' and the code being ``longer making
+it more confusing''.
+
+
+\begin{figure}
+  \includegraphics[width=0.9\columnwidth]{./data/understandability}
+  \caption{Distribution of test case understandability, ranked from 1 (best) to 5 (worst), per project.}
+  \label{fig:readability}
+\end{figure}
 
 
 %-------------------------------------------------------------------------
