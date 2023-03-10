@@ -267,30 +267,28 @@ class under test.
 %-------------------------------------------------------------------------
 \section{Competition Setup}
 
-The 2022 competition setup was identical to the 2021 setup: The most recent
-version of \EVOSUITE (1.1.0) was used, which by default uses
-DynaMOSA~\cite{dynamosa} as the search algorithm. No new features were added in
-this version, but support for Java 9+ was added, several bugs were fixed, and a
-major refactoring was applied to improve the code quality with respect to the
-use of Java Generics internally. While several smaller bugfixes were applied in
-the run-up to the 2021 competition, no further optimisation or testing was
-applied for 2022.
+The 2023 competition setup was similar to the 2022 setup: The same version of
+\EVOSUITE (1.1.0) was used, which by default uses DynaMOSA~\cite{dynamosa} as
+the search algorithm.
+% No new features were added in this version, but support
+% for Java 9+ was added, several bugs were fixed, and amajor refactoring was applied
+% to improve the code quality with respect to the
+% use of Java Generics internally. While several smaller bugfixes were applied in
+% the run-up to the 2021 competition, no further optimisation or testing was
+% applied for 2022.
 
 The configuration is largely identical to the established configuration used in
 prior years, and mainly uses the tuned default
 values~\cite{arcuri2013parameter} and default coverage criteria
 \cite{rojas2015combining}.
 %
-As in previous years, the configuration omits the test minimisation step as the
-competition score does not reward test minimality, and the minimisation takes
-substantial computational effort. Similarly, the configuration includes all
-regression assertions rather than filtering them with mutation analysis to save
-time.
+Unlike previous years, where the competition score did not yet reward readability,
+the configuration now enables a test minimisation step, and filters regression
+assertions using mutation analysis.
 %
 The time budget was again distributed by allocating \SI{50}{\percent} of the overall time
 set by the competition organisers for the search, and the other \SI{50}{\percent} equally to
-the remaining phases (e.g., assertion generation, compile-check,
-flakiness-check).
+the remaining phases (e.g., assertion generation, compile-check, flakiness-check).
 
 
 
