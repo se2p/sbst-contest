@@ -259,24 +259,26 @@ analysis~\cite{10.1109/TSE.2011.93}.
 %-------------------------------------------------------------------------
 \section{Competition Setup}\label{sec:setup}
 
-The competition setup was similar to the 2022 setup: The same version of
-\EVOSUITE (1.1.0) was used, which by default uses DynaMOSA~\cite{dynamosa} as
-the search algorithm.
+\EVOSUITE is currently undergoing a significant rewrite to improve the quality
+of its internal code base, for example a better use of Java generics to aid
+type safety. The latest version (1.2.0) contains the first fruits of this effort,
+but also introduced regressions that still existed at the time the competition was
+hold. For this reason, the same version (1.1.0) as in previous years was used.
+The remaining setup was largely similar to the 2022 iteration: DynaMOSA~\cite{dynamosa}
+was chosen as search algorithm, and \EVOSUITE was configured with the parameters
+established in prior years, which mainly uses the tuned default
+values~\cite{arcuri2013parameter} and default coverage criteria~\cite{rojas2015combining}.
+%
 % No new features were added in this version, but support
 % for Java 9+ was added, several bugs were fixed, and a major refactoring was applied
 % to improve the code quality with respect to the
 % use of Java Generics internally. While several smaller bugfixes were applied in
 % the run-up to the 2021 competition, no further optimisation or testing was
 % applied for 2022.
-
-The configuration is largely identical to the established configuration used in
-prior years, and mainly uses the tuned default
-values~\cite{arcuri2013parameter} and default coverage criteria
-\cite{rojas2015combining}.
 %
-Unlike previous years, where the competition score did not yet reward readability,
-the configuration now enables a test minimisation step, and filters regression
-assertions using mutation analysis.
+However, in previous years the competition only rewarded code coverage, and this year
+test case readability is also factored in. To account for this, configuration now
+enables a test minimisation step, and filters regression assertions using mutation analysis.
 %
 The time budget was again distributed by allocating \SI{50}{\percent} of the overall time
 set by the competition organisers for the search, and the other \SI{50}{\percent} equally to
@@ -315,7 +317,7 @@ the remaining phases (e.g., assertion generation, compile-check, flakiness-check
 \end{figure}
 
 
-With an overall score of \score \EVOSUITE was the highest ranking tool
+With an overall score of \score, \EVOSUITE was the highest ranking tool
 (rank \rank) in the competition. The score is computed as the weighted
 sum between the rankings for coverage (rank \rankCoverage) and understandability
 (rank \rankUnderstandability). We refer to the competition report~\cite{SBFT-toolcomp23}
