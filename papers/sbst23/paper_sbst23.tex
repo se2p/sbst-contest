@@ -187,8 +187,11 @@
 \maketitle
 
 \begin{abstract}
-  \TODO{Reword}
-  \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the 11th unit testing competition at SBFT 2023, where \EVOSUITE achieved the highest overall score.
+  \EVOSUITE is an automated unit test generation tool for Java based
+  on meta-heuristic search techniques. This paper summarises the
+  results and experiences of \EVOSUITE's participation at the 11th
+  unit testing competition at SBFT 2023, where \EVOSUITE achieved the
+  highest overall score.
 \end{abstract}
 
 
@@ -211,12 +214,12 @@ best result among its competitors.
 \EVOSUITE~\cite{FrA11c} is an automatic test generation tool for Java classes.
 It takes the name of the target class as input, along with a Java classpath that
 locates the class's compiled bytecode and that of its dependencies, and produces
-a test suite in JUnit~4 format as output.
+a test suite in JUnit~4 format optimised for code coverage as output.
 
 In a preprocessing phase, \EVOSUITE uses a basic static analysis to collect
 information about the relevant classes, such as their constructors, methods
 and fields. \EVOSUITE loads these classes into the Java Virtual Machine, and
-applies various bytecode instrumentations while doing so. This enables \EVOSUITE
+applies various types of  bytecode instrumentation while doing so. This enables \EVOSUITE
 to produce test execution traces, and to avoid test flakiness by replacing
 non-deterministic calls with deterministic, mocked versions.
 
@@ -228,27 +231,27 @@ that represents a test case as variable-length sequence of Java statements
 Standard evolutionary search operators (e.g., selection, crossover, mutation)
 are adapted for this representation.
 
-\EVOSUITE implements various evolutionary algorithms that operate on this
+\EVOSUITE implements several different evolutionary algorithms that operate on this
 representation. Early versions of \EVOSUITE followed the \emph{Whole Test Suite} (WTS)
 approach~\cite{GoA_TSE12}, where entire test suites are optimised with
-respect to their overall code coverage. However, a subsequent study~\cite{ea_evaluation}
-found the \emph{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA)~\cite{dynamosa}
+respect to their overall code coverage. A subsequent study~\cite{ea_evaluation}
+introduced the \emph{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA)~\cite{dynamosa} algorithm, which was shown
 to yield superior results. Unlike WTS, DynaMOSA operates directly at the test case level,
 and it is now the default algorithm in \EVOSUITE.
 
 Irrespective of which algorithm is chosen, the search is always driven by fitness
 functions. These encode coverage criteria, and \EVOSUITE can optimise for multiple
 criteria at the same time. Core fitness functions are based on traditional heuristics
-for code coverage, such as branch distance and approach level (see ~\cite{GoA_TSE12} for more details.)
+for code coverage, such as branch distance and approach level (see \EVOSUITE's original paper~\cite{GoA_TSE12} for more details.)
 Besides this, there are further fitness functions based on mutation
 testing~\cite{emse14_mutation} and other basic criteria~\cite{rojas2015combining}.
 
-\TODO{rephrase this paragraph}
-A large share of the complexity of \EVOSUITE's code base is due to efforts to
-avoid flakiness in the generated tests. On the one hand, this covers extensive
-instrumentation and mocking. On the other hand, \EVOSUITE also compiles and
-executes each test individually to avoid compilation errors (which may be the
-result of bugs in \EVOSUITE) or flakiness caused by non-determinism in the
+\EVOSUITE consists of a large code base, of which a large share is
+dedicated to avoiding flakiness in the generated tests. This is
+achieved using extensive instrumentation and mocking, as well as
+post-processing; for example, \EVOSUITE compiles and executes each
+test individually to avoid compilation errors (which may be the result
+of bugs in \EVOSUITE) or flakiness caused by non-determinism in the
 class under test.
 
 Once the available search budget for the main phase has been exhausted,
@@ -279,8 +282,8 @@ values~\cite{arcuri2013parameter} and default coverage criteria~\cite{rojas2015c
 % the run-up to the 2021 competition, no further optimisation or testing was
 % applied for 2022.
 %
-However, in previous years the competition only rewarded code coverage, and this year
-test case readability is also factored in. To account for this, configuration now
+While in previous years the competition only rewarded code coverage, this year
+test case readability was also factored in. To account for this, the new configuration 
 enables a test minimisation step, and filters regression assertions using mutation analysis.
 %
 The time budget was again distributed by allocating \SI{50}{\percent} of the overall time
@@ -378,44 +381,54 @@ with an \texttt{OutOfMemoryError}. % while generating or postprocessing tests.
   \label{fig:readability}
 \end{figure}
 
-For the first time, the competition also conducted a human study with 13
+For the first time, the competition included a human study with 13
 participants to assess test case readability. For each of the projects \Collections,
 \Threeten, and \Spatial, participants were presented a test case
 generated by each of the six competing tools, covering the same method under
 test. The participants were then asked to rank the tests per project
 on a scale from 1 (best) to 5 (worst), in terms of readability. Overall,
-\EVOSUITE achieved the 2nd best rating (rank 2.23 on average), only
+\EVOSUITE achieved the 2nd best rating (rank 2.23 on average), 
 preceded by \UtbotConcolic (2.13 on average). \EVOSUITE's rank distribution
 is shown in Figure~\ref{fig:readability}.
 
 Most participants found \EVOSUITE-generated tests to be readable. When
 \EVOSUITE ranked best, they positively highlighted the thoroughness of
-generated assertions, using edge cases as inputs, and the fact that tests
-where short. When \EVOSUITE ranked worst, participants criticised the lack
-of comments and descriptive test names, repetitiveness in the code, and
-needless assertions. While \EVOSUITE's competition setup enabled test and
-assertion minimisation, this is a computationally very expensive process,
-and it is likely \EVOSUITE was sometimes unable to finish in time,
-leaving tests unoptimised.
+generated assertions, using edge cases as inputs, and the fact that
+tests where short. When \EVOSUITE ranked worst, participants
+criticised the lack of comments and descriptive test names,
+repetitiveness in the code, and needless assertions. While \EVOSUITE's
+competition setup enabled test and assertion minimisation, this is a
+computationally very expensive process, and it is likely \EVOSUITE was
+sometimes unable to finish in time, leaving tests unoptimised. In
+particilar, there are two aspects of this minimisation: The first
+minimisation phase attempts to remove all statements in a test that
+are irrelevant for achieving the test's coverage goals; the second
+minimisation phase consists of selecting a minimal subset of test
+assertions that are sufficient to detect all code mutants the test is
+capable of detecting. If either of these phases exceeds the allocated
+time budget it is cancelled, and \EVOSUITE returns the non-minimised
+tests.
 
-Among the tests for \Collections the longest one was produced by \EVOSUITE.
-Interestingly, it ranked both highest and lowest, with one participant
-stating it was ``the most complete'', while another suggested the code
-being longer makes it ``more confusing''. But as a general trend, participants
-seemed to prefer shorter, more cohesive tests with assertions that only check
-one particular aspect of the method under test.
+Among the tests for \Collections the longest one was produced by
+\EVOSUITE.  Interestingly, it ranked both highest and lowest, with one
+participant stating it was ``the most complete'', while another
+suggested the code being longer makes it ``more confusing''. As a
+general trend, participants seemed to prefer shorter, more cohesive
+tests with assertions that only check one particular aspect of the
+method under test.
 
 %-------------------------------------------------------------------------
 \section{Conclusions}
 
-\TODO{Update and Reword}
-This paper reports on the participation of the \EVOSUITE test generation tool
-in the 11th SBST Java Unit Testing Tool Contest. On average, \EVOSUITE
-achieved \avgConditionsCoverageRatioLong branch coverage,
-\avgLinesCoverageRatioLong line coverage, and a mutation score of
-\avgMutantsCoverageRatioLong, using a search budget of \budgetLong on the \cuts
-classes considered for the competition. Overall, this results in a score of
-\score, which is the highest score of all tools in the competition.
+
+This paper describes the results and experiences of \EVOSUITE's
+participation in the 11th SBST Java Unit Testing Tool Contest. On
+average, \EVOSUITE achieved \avgConditionsCoverageRatioLong branch
+coverage, \avgLinesCoverageRatioLong line coverage, and a mutation
+score of \avgMutantsCoverageRatioLong, using a search budget of
+\budgetLong on the \cuts classes considered for the
+competition. Overall, this results in a score of \score, which is the
+highest score of all competing tools.
 
 
 To learn more about \EVOSUITE, visit our Web site:
@@ -438,9 +451,9 @@ To learn more about \EVOSUITE, visit our Web site:
 %\def\IEEEbibitemsep{5pt plus 1pt}
 %\def\IEEEbibitemsep{6pt}
 %\clearpage
+\balance
 \bibliographystyle{IEEEtranS}
 \bibliography{papers}
-\balance
 
 \end{document}
 
