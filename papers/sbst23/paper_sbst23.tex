@@ -227,19 +227,19 @@ Standard evolutionary search operators (e.g., selection, crossover, mutation)
 are adapted for this representation.
 
 \EVOSUITE implements various evolutionary algorithms that operate on this
-representation. The initial approach was to optimise entire test suites with
-respect to their overall code coverage~\cite{GoA_TSE12}. However, after
-extensive evaluation~\cite{ea_evaluation} the default is now the
-\emph{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA) search
-algorithm~\cite{dynamosa}, which operates at the test case level.
+representation. Early versions of \EVOSUITE followed the \emph{Whole Test Suite} (WTS)
+approach~\cite{GoA_TSE12}, where entire test suites are optimised with
+respect to their overall code coverage. However, a subsequent study~\cite{ea_evaluation}
+found the \emph{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA)~\cite{dynamosa}
+to yield superior results. Unlike WTS, DynaMOSA operates directly at the test case level,
+and it is now the default algorithm in \EVOSUITE.
 
-The search is driven by fitness functions that encode coverage criteria.
-\EVOSUITE can optimise for several criteria simultaneously, and the core fitness
-functions in \EVOSUITE are based on traditional heuristics for code coverage, such
-as the branch distance and the approach level (see~\cite{GoA_TSE12} for more details).
-However, there are several further fitness functions based on mutation
-testing~\cite{emse14_mutation} as well as other basic
-criteria~\cite{rojas2015combining}.
+Irrespective of which algorithm is chosen, the search is always driven by fitness
+functions. These encode coverage criteria, and \EVOSUITE can optimise for multiple
+criteria at the same time. Core fitness functions are based on traditional heuristics
+for code coverage, such as branch distance and approach level (see ~\cite{GoA_TSE12} for more details.)
+Besides this, there are further fitness functions based on mutation
+testing~\cite{emse14_mutation} and other basic criteria~\cite{rojas2015combining}.
 
 A large share of the complexity of \EVOSUITE's code base is due to efforts to
 avoid flakiness in the generated tests. On the one hand, this covers extensive
@@ -248,12 +248,12 @@ executes each test individually to avoid compilation errors (which may be the
 result of bugs in \EVOSUITE) or flakiness caused by non-determinism in the
 class under test.
 
-\EVOSUITE is also heavily optimised in order to produce tests that are as
-readable as possible and avoid test smells~\cite{panichella2020revisiting}.
-For this, \EVOSUITE applies post-processing once the available search budget
-has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to
-remove redundant tests and statements, and adding a minimised set of assertions
-using mutation analysis~\cite{10.1109/TSE.2011.93}.
+Once the available search budget for the main phase has been exhausted,
+\EVOSUITE can be configured to run a postprocessing phase where tests are optimised for
+readability~\cite{FrA11c,FrA13a}. This includes avoiding test
+smells~\cite{panichella2020revisiting}, minimisation to remove redundant tests
+and statements, and adding a minimised set of assertions using mutation
+analysis~\cite{10.1109/TSE.2011.93}.
 
 
 %-------------------------------------------------------------------------
