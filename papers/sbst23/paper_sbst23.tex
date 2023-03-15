@@ -78,7 +78,8 @@
 % in draft mode we put \remarks into the margins and do other stuff
 % set to \draftfalse for
 \newif\ifdraft
-\draftfalse
+%\draftfalse
+\drafttrue
 
 \ifdraft
 	\marginparwidth=1.3cm
@@ -186,6 +187,7 @@
 \maketitle
 
 \begin{abstract}
+  \TODO{Reword}
   \EVOSUITE is a search-based unit test generation tool for Java. This paper summarises the results and experiences of \EVOSUITE's participation at the 11th unit testing competition at SBFT 2023, where \EVOSUITE achieved the highest overall score.
 \end{abstract}
 
@@ -405,6 +407,7 @@ one particular aspect of the method under test.
 %-------------------------------------------------------------------------
 \section{Conclusions}
 
+\TODO{Update and Reword}
 This paper reports on the participation of the \EVOSUITE test generation tool
 in the 11th SBST Java Unit Testing Tool Contest. On average, \EVOSUITE
 achieved \avgConditionsCoverageRatioLong branch coverage,
