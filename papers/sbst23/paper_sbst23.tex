@@ -206,34 +206,40 @@ best result among its competitors.
 %-------------------------------------------------------------------------
 \section{About EvoSuite}
 
+\EVOSUITE~\cite{FrA11c} is an automatic test generation tool for Java classes.
+It takes the name of the target class as input, along with a Java classpath that
+locates the class's compiled bytecode and that of its dependencies, and produces
+a test suite in JUnit~4 format as output.
 
-\EVOSUITE~\cite{FrA11c} automatically generates test suites for Java classes
-using evolutionary search. As input \EVOSUITE only requires the name of the
-target class as well as the classpath on which the compiled bytecode of the
-target class and its dependencies are located. \EVOSUITE first extracts
-information about the relevant classes as well as their constructors, methods,
-and fields using a basic static analysis. It instruments the bytecode while
-classes are loaded by the Java classloader, such that \EVOSUITE can produce
-execution traces for test executions, and to avoid test flakiness by replacing
-non-deterministic calls with deterministic, mocked versions. Finally, \EVOSUITE
-applies meta-heuristic search algorithms to automatically produce JUnit test
-cases aimed at maximising code coverage.
-%Besides the basic command line interface there are also plugins for popular development environments such as IntelliJ, Eclipse, or Maven~\cite{ICST16_Tool}.
+In a preprocessing phase, \EVOSUITE uses a basic static analysis to collect
+information about the relevant classes, such as their constructors, methods
+and fields. \EVOSUITE loads these classes into the Java Virtual Machine, and
+applies various bytecode instrumentations while doing so. This enables \EVOSUITE
+to produce test execution traces, and to avoid test flakiness by replacing
+non-deterministic calls with deterministic, mocked versions.
 
+The main execution phase of \EVOSUITE is dedicated to test generation. Here,
+meta-heuristic search algorithms are applied to automatically produce JUnit
+tests that maximise code coverage. Internally, \EVOSUITE uses a genetic encoding
+that represents a test case as variable-length sequence of Java statements
+(e.g., primitive statements as well as calls on constructors or methods).
+Standard evolutionary search operators (e.g., selection, crossover, mutation)
+are adapted for this representation.
 
-\EVOSUITE generates tests using evolutionary algorithms.
-%
-For this, it uses a genetic encoding of test cases consisting of variable-length sequences of Java statements (e.g., primitive statements as well as calls on constructors or methods). Standard evolutionary search operators (e.g., selection, crossover, mutation) are adapted for this representation.
-%
-\EVOSUITE provides several different evolutionary algorithms to operate on this
+\EVOSUITE implements various evolutionary algorithms that operate on this
 representation. The initial approach was to optimise entire test suites with
 respect to their overall code coverage~\cite{GoA_TSE12}. However, after
 extensive evaluation~\cite{ea_evaluation} the default is now the
 \emph{Dynamic Many-Objective Sorting Algorithm} (DynaMOSA) search
 algorithm~\cite{dynamosa}, which operates at the test case level.
-%
-The search is driven by fitness functions that encode coverage criteria. \EVOSUITE can optimise for several criteria simultaneously, and the core fitness functions in \EVOSUITE are based on traditional heuristics for code coverage, such as the branch distance and the approach level (see~\cite{GoA_TSE12} for more details). However, there are several further fitness functions based on mutation testing~\cite{emse14_mutation} as well as other basic criteria~\cite{rojas2015combining}.
 
+The search is driven by fitness functions that encode coverage criteria.
+\EVOSUITE can optimise for several criteria simultaneously, and the core fitness
+functions in \EVOSUITE are based on traditional heuristics for code coverage, such
+as the branch distance and the approach level (see~\cite{GoA_TSE12} for more details).
+However, there are several further fitness functions based on mutation
+testing~\cite{emse14_mutation} as well as other basic
+criteria~\cite{rojas2015combining}.
 
 A large share of the complexity of \EVOSUITE's code base is due to efforts to
 avoid flakiness in the generated tests. On the one hand, this covers extensive
@@ -242,15 +248,12 @@ executes each test individually to avoid compilation errors (which may be the
 result of bugs in \EVOSUITE) or flakiness caused by non-determinism in the
 class under test.
 
-\EVOSUITE is also heavily optimised in order to produce tests that are as readable as possible and avoid test smells~\cite{panichella2020revisiting}. For this, \EVOSUITE applies post-processing once the available search budget has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to remove redundant tests and statements, and adding a minimised set of assertions using mutation analysis~\cite{10.1109/TSE.2011.93}.
-%Besides multiple in-depth empirical evaluations of \EVOSUITE with respect to
-%code coverage~\cite{fraser2014large,emse_archive,ea_evaluation,dynamosa},
-%fault-finding effectiveness~\cite{shamshiri2015automatically,moein2017}, and
-%effects on developer productivity~\cite{TOSEM_userstudy,ISSTA15_Study} and
-%software maintenance~\cite{ICST2018_Maintenance}, \EVOSUITE has also participated in all prior instances of the unit testing tool competition, usually ranking among the best performing tools.
-
-
-
+\EVOSUITE is also heavily optimised in order to produce tests that are as
+readable as possible and avoid test smells~\cite{panichella2020revisiting}.
+For this, \EVOSUITE applies post-processing once the available search budget
+has been exhausted~\cite{FrA11c,FrA13a}, consisting of minimisation to
+remove redundant tests and statements, and adding a minimised set of assertions
+using mutation analysis~\cite{10.1109/TSE.2011.93}.
 
 
 %-------------------------------------------------------------------------
@@ -260,7 +263,7 @@ The competition setup was similar to the 2022 setup: The same version of
 \EVOSUITE (1.1.0) was used, which by default uses DynaMOSA~\cite{dynamosa} as
 the search algorithm.
 % No new features were added in this version, but support
-% for Java 9+ was added, several bugs were fixed, and amajor refactoring was applied
+% for Java 9+ was added, several bugs were fixed, and a major refactoring was applied
 % to improve the code quality with respect to the
 % use of Java Generics internally. While several smaller bugfixes were applied in
 % the run-up to the 2021 competition, no further optimisation or testing was
