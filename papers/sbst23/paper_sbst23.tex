@@ -364,6 +364,12 @@ with an \texttt{OutOfMemoryError}. % while generating or postprocessing tests.
 % ta4j-79
 % java.lang.OutOfMemoryError: GC overhead limit exceeded while post-processing tests
 
+\begin{figure}
+  \includegraphics[width=\columnwidth]{./data/understandability}
+  \caption{Distribution of test case understandability, ranked from 1 (best) to 5 (worst), per project}
+  \label{fig:readability}
+\end{figure}
+
 For the first time, the competition also conducted a human study with 13
 participants to assess test case readability. For each of the projects \Collections,
 \Threeten, and \Spatial, participants were presented a test case
@@ -387,20 +393,9 @@ leaving tests unoptimised.
 Among the tests for \Collections the longest one was produced by \EVOSUITE.
 Interestingly, it ranked both highest and lowest, with one participant
 stating it was ``the most complete'', while another suggested the code
-being longer makes it ``more confusing''.
-
-As a general trend, participants seem to value expressive names for test cases
-variables, separation of concerns (i.e., unrelated functionality is )
-and meaningful assertions.
-
-shorter tests
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{./data/understandability}
-  \caption{Distribution of test case understandability, ranked from 1 (best) to 5 (worst), per project}
-  \label{fig:readability}
-\end{figure}
-
+being longer makes it ``more confusing''. But as a general trend, participants
+seemed to prefer shorter, more cohesive tests with assertions that only check
+one particular aspect of the method under test.
 
 %-------------------------------------------------------------------------
 \section{Conclusions}
