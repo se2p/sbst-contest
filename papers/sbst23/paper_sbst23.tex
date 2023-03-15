@@ -199,7 +199,7 @@ classes, on which different tools are applied and compared. In the 2023 edition
 of the competition, five tools were applied on a set of \cuts classes. Details
 about the procedure of the competition, the technical framework, and the
 benchmark classes can be found in the competition
-report~\cite{SBST-toolcomp22}. \EVOSUITE achieved an overall score of \score,
+report~\cite{SBFT-toolcomp23}. \EVOSUITE achieved an overall score of \score,
 which was the highest among the competing and baseline tools.
 
 
@@ -254,7 +254,7 @@ class under test.
 
 
 %-------------------------------------------------------------------------
-\section{Competition Setup}
+\section{Competition Setup}\label{sec:setup}
 
 The 2023 competition setup was similar to the 2022 setup: The same version of
 \EVOSUITE (1.1.0) was used, which by default uses DynaMOSA~\cite{dynamosa} as
@@ -296,41 +296,73 @@ the remaining phases (e.g., assertion generation, compile-check, flakiness-check
 
   \begin{subfigure}{\columnwidth}
     \includegraphics[width=\linewidth]{data/CoverageByBenchmark30.pdf}
-    \caption{Coverage results achieved in the competition with \SI{30}{\second}.}
+    \caption{Results achieved in the competition with a budget of \budgetShort}
     \label{fig:results30}
   \end{subfigure}
 
   \begin{subfigure}{\columnwidth}
     \includegraphics[width=\linewidth]{data/CoverageByBenchmark120.pdf}
-    \caption{Coverage results achieved in the competition with \SI{120}{\second}.}
+    \caption{Results achieved in the competition with a budget of \budgetLong}
     \label{fig:results120}
   \end{subfigure}
 
-  \caption{Competition results achieved by \EVOSUITE summarised by projects from which the classes under test.}
+  \caption{Coverage results achieved by \EVOSUITE per each of the 5~projects
+    used in the competition}
   \label{fig:figures}
 \end{figure}
 
 
-With an overall score of \score, \EVOSUITE achieved the highest score of all
-tools in the competition. As described in the competition
-report~\cite{SBST-toolcomp22}, the score is the weighted sum between the
-rankings for coverage and understandability.
+With an overall score of \score \EVOSUITE was the highest ranking tool
+(rank \rank) in the competition. The score is computed as the weighted
+sum between the rankings for coverage (rank \rankCoverage) and understandability
+(rank \rankUnderstandability). We refer to the competition report~\cite{SBFT-toolcomp23}
+for more details.
 
-Figure~\ref{fig:results30} summarises the results of \EVOSUITE in terms of the
-mean coverage for the \cuts classes used in the competition for the \budgetShort search budget; Figure~\ref{fig:results120} shows the results for the \budgetLong search budget. The coverage
-increased from the \budgetShort to the \budgetLong search budget (mean line
-coverage of \avgLinesCoverageRatioShort vs. \avgLinesCoverageRatioLong, respectively).
+The coverage \EVOSUITE achieved on the \cuts classes distributed across the \projects
+projects used in the competition is illustrated in Figure~\ref{fig:results30} for a search
+budget of \budgetShort, and in Figure~\ref{fig:results120} for a budget of \budgetLong.
+The median line and branch coverage for the \budgetShort budget is
+\medLinesCoverageRatioShort and \medConditionsCoverageRatioShort, and
+increases to \medLinesCoverageRatioLong and \medConditionsCoverageRatioLong
+for the \budgetLong budget. The median mutation coverage is \SI{0}{\percent} in
+both cases, and equal to all the other tools used in the competition.
 
-\EVOSUITE failed to generate any tests in \numTestGenFailedShort cases with a
-budget of \budgetShort, and in \numTestGenFailedLong cases with a budget of
-\budgetLong. However, we found no crashes of \EVOSUITE itself (e.g., exceptions
-thrown by \EVOSUITE), but in all cases where no tests were generated the
-\EVOSUITE process had been killed by the competition setup, suggesting that
-\EVOSUITE was using more time than allocated.
+As stated in the competition report~\cite{SBFT-toolcomp23} \EVOSUITE is the
+only tool for which the median number of generated tests \emph{decreases}
+from \num{35} for the \budgetShort budget to \num{23.5} for the \budgetLong budget.
+As stated before, \EVOSUITE tries to apply additional post-processing steps to remove
+redundant tests. However, in case of the \budgetShort budget most time is spent on test
+generation and only little time remains for minimisation.
 
-While the results for line coverage and branch coverage are similar, the
-mutation scores are substantially lower. The mutation scores on the \Threeten
-classes are highest compared to the other projects from which classes were taken.
+% While the results for line coverage and branch coverage are similar, the
+% mutation scores are substantially lower. The mutation scores on the \Threeten
+% classes are highest compared to the other projects from which classes were taken.
+
+% https://github.com/JUnitContest/JUGE/blob/master/benchmarktool/src/main/java/sbst/benchmark/Main.java#L160
+In \numTestGenFailedShort cases \EVOSUITE failed to generate any tests with a
+budget of \budgetShort. However, this might have been caused by problems in the
+infrastructure\footnote{https://github.com/JUnitContest/JUGE/}
+of the competition as we found no crashes or error messages
+of \EVOSUITE itself. Instead, the log files contained the error message
+``Error: null'' triggered by line~160 in the \texttt{main()} method of
+the \texttt{sbst.benchmark.Main} class. Here, \EVOSUITE is invoked with an
+\texttt{IBenchmarkTask} object as input which seems to have not been properly
+initialised.
+%
+The same error also ocurred in 13 of \numTestGenFailedLong
+cases with a budget of \budgetLong. In the remaining 4 cases, \EVOSUITE crashed
+with an \texttt{OutOfMemoryError}. % while generating or postprocessing tests.
+
+% threeten-extra-99 (2×)
+% Test generation aborted
+% Out of Memory Error GH overhead limit exceeded
+
+% collections-10
+% Crash
+% java.lang.OutOfMemoryError: Java heap space during test suite minimisation
+
+% ta4j-79
+% java.lang.OutOfMemoryError: GC overhead limit exceeded while post-processing tests
 
 For the first time, the competition also conducted a human study with 13
 participants to assess test case readability. For each of the projects \Collections,
@@ -357,10 +389,15 @@ Interestingly, it ranked both highest and lowest, with one participant
 stating it was ``the most complete'', while another suggested the code
 being longer makes it ``more confusing''.
 
+As a general trend, participants seem to value expressive names for test cases
+variables, separation of concerns (i.e., unrelated functionality is )
+and meaningful assertions.
+
+shorter tests
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{./data/understandability}
-  \caption{Distribution of test case understandability, ranked from 1 (best) to 5 (worst), per project.}
+  \caption{Distribution of test case understandability, ranked from 1 (best) to 5 (worst), per project}
   \label{fig:readability}
 \end{figure}
 

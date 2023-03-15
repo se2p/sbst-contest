@@ -42,9 +42,9 @@ plot_data = (all_data[columns.keys()]  # (1)
                    value_name='Percent'))  # (3)
 
 """
-Create a boxplot of the EvoSuite data per "Metric" on the x-axis, plotting the 
+Create a boxplot of the EvoSuite data per "Metric" on the x-axis, plotting the
 corresponding values in the "Percent" column on the y-axis. Using "Time Budget"
-as hue key creates grouped a boxplot: for each metric, it actually plots two 
+as hue key creates grouped a boxplot: for each metric, it actually plots two
 boxes for the two budgets.
 """
 utils.preload_latex_style("IEEE")
@@ -136,7 +136,11 @@ utils.save_fig(fig, './CoverageByBenchmark120.pdf')
 
 stats = {
     'score': 678.12,
+    'rank': 1.83,
+    'rankCoverage': 1.79,
+    'rankUnderstandability': 2.23,
     'cuts': all_data['class'].nunique(),
+    'projects': 5,
     'budgetShort': r'\SI{30}{\second}',
     'budgetLong': r'\SI{120}{\second}',
 }
@@ -169,6 +173,7 @@ def test_gen_failed(data):
 
 stats['numTestGenFailedShort'] = test_gen_failed(data30).shape[0]
 stats['numTestGenFailedLong'] = test_gen_failed(data120).shape[0]
+
 
 utils.write_tex_macros('./macros.tex', utils.create_tex_macros(stats))
 
